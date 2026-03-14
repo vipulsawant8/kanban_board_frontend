@@ -1,0 +1,73 @@
+:root {
+  --bs-primary: #0d6efd;
+}
+
+body{
+  /* background-color: #f1f3f5; */
+  background-color: #F3F4F6;
+  /* background-color: "#F8F9FA"; */
+  color: #212529;
+}
+
+.kanban-list{
+  min-width: 280px;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgb(0, 0,0, 0.06);
+}
+
+.kanban-list-header{
+  background: #f8f9fa;
+  font-weight: 600;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.kanban-task{
+  background: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  cursor: grab;
+}
+
+.kanban-task:hover{
+  background-color: #f8f9fa;
+}
+
+.hide-scrollbar {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE/Edge */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;                /* Chrome, Safari */
+}
+
+.btn-icon{
+  text-decoration: none !important;
+  font-weight: bolder !important;
+}
+
+.x-btn{
+  color: #dc3545 !important;
+}
+
+.edit-btn{
+  color: #0d6efd !important;
+}
+
+.mobile-toast {
+  margin: 0;
+}
+
+/* Mobile spacing */
+@media (max-width: 768px) {
+  .mobile-toast {
+    width: auto !important;
+    margin-top: 16px !important;
+    margin-left: 16px !important;
+    margin-bottom: 16px !important;
+  }
+}
