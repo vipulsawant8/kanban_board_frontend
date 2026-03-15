@@ -1,9 +1,10 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Modal, ModalHeader, ModalTitle, ModalFooter, Button } from "react-bootstrap";
-import { deleteList } from "../../app/features/lists/listSlice.js";
+import { deleteList, persistReorderLists, selectAllLists } from "../../app/features/lists/listSlice.js";
 import notify from "../../utils/notify.js";
 
 const ListDeleteModal = ({ show, onHide, list }) => {
+	const lists = useSelector(selectAllLists);
 	
 	const dispatch = useDispatch();
 
@@ -13,6 +14,17 @@ const ListDeleteModal = ({ show, onHide, list }) => {
 				if (import.meta.env.DEV) console.log('result :', result);
 				const msg = result.message || `List "${list.title}" was deleted`;
 				notify.success(msg);
+				 
+				const orderedLists = lists
+				.filter(l => l._id !== list._id)
+				.sort((a, b) => a.position - b.position);
+
+				const payload = orderedLists.map((l, idx) => ({
+					_id: l._id,
+					position: idx
+				}));
+
+				await dispatch(persistReorderLists(payload)).unwrap();
 				onHide();
 			} catch (error) {
 				
