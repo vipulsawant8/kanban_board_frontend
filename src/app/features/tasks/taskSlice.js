@@ -68,8 +68,18 @@ const taskSlice = createSlice({
 		})
 		.addCase(deleteTask.fulfilled, (state, action) => {
 			
-			const id = action.payload.data._id;
-			taskAdapter.removeOne(state, id);
+			const deletedTask = action.payload.data;
+			const taskId = deletedTask._id;
+
+			taskAdapter.removeOne(state, taskId);
+
+			const listTasks = Object.values(state.entities)
+				.filter(t => t && t.listID === deletedTask.listID)
+				.sort((a, b) => a.position - b.position);
+
+			listTasks.forEach((task, index) => {
+				task.position = index;
+			});
 		})
 		.addCase(persistReorderTasks.fulfilled, (state, action) => {
 		})

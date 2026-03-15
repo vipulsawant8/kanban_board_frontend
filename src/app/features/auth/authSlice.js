@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import asyncThunkWrapper from "@/utils/asyncThunkWrapper.js";
 import API from "@/api/axios.js";
-import { clearDeviceId } from "../../../utils/deviceId";
 // import { getDeviceId } from "../../../utils/deviceId.js";
 
 // const deviceId = getDeviceId();
@@ -21,7 +20,6 @@ export const loginUser = createAsyncThunk('auth/loginUser', (userData, thunkAPI)
 export const logoutUser = createAsyncThunk('auth/logoutUser', async () => {
 	try {
 		await API.post('/auth/logout');
-		clearDeviceId();
 	} catch (error) {
 		
 		if (import.meta.env.DEV) console.warn("Logout API error :", error);

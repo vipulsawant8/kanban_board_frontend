@@ -3,9 +3,9 @@ import { TaskItem } from "@/components/tasks";
 
 const ListTasks = ({ listID, tasks }) => {
 
-	// if (!tasks || tasks.length === 0) {
-	// 	<p className="text-center"> No Tasks </p>
-	// };
+	if (!tasks || tasks.length === 0) {
+		<p className="text-center"> No Tasks </p>
+	};
 
 	return (
 		<Droppable droppableId={listID} type="TASK">

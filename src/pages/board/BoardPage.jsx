@@ -1,14 +1,11 @@
-import * as yup from "yup";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { selectAllLists, fetchLists, createList, reorderList, persistReorderLists } from "@/app/features/lists/listSlice.js";
+import { selectAllLists, fetchLists } from "@/app/features/lists/listSlice.js";
 import { selectAllTasks, fetchTasks, reorderTaskLocal, persistReorderTasks } from "@/app/features/tasks/taskSlice.js";
 
-// import { CustomForm } from "@/components/form";
-
-import { Container, Row, Col, Card, CardBody, CardTitle, Modal, ModalBody, ModalHeader, ModalFooter, Button } from "react-bootstrap";
-import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
+import { Row, Col, Button } from "react-bootstrap";
+import { DragDropContext } from "@hello-pangea/dnd";
 
 import { ListColumn } from "@/components/lists";
 
@@ -59,19 +56,6 @@ const BoardPage = () => {
 		if (!destination) return;
 
 		if (destination.droppableId === source.droppableId && destination.index === source.index) return;
-
-		if (type === "LIST") {
-			
-			// if (source.index === destination.index) return;
-
-			const newOrder = reorderArray(lists, source.index, destination.index);
-
-			const payload = newOrder.map((l, idx) => ({ _id: l._id, position: idx }));
-
-			dispatch(reorderList(payload));
-			dispatch(persistReorderLists(payload));
-			return
-		}
 
 		if (type === "TASK") {
 			
@@ -124,51 +108,14 @@ const BoardPage = () => {
 			 <AddList ref={formRef} show={adding} onHide={onHide} />
 
 			<Row className="mt-3">
-				
 				<h2 className="mb-4"> Your Board </h2>
-					<DragDropContext onDragEnd={onDragEnd}>
-						<Droppable
-							droppableId="board-droppable"
-							direction="horizontal"
-							type="LIST">
-							
-							{(provided) => (
-								
-								<div
-									ref={provided.innerRef}
-									{...provided.droppableProps}
-									style={{display: "flex", gap: "1rem", alignItems: "flex-start", overflowX: "auto" }}
-									className="hide-scrollbar">
-									{/* > */}
-									
-									{lists.map((list, index) => (
-										<Draggable
-											key={list._id}
-											draggableId={String(list._id)}
-											index={index}>
-											
-											{(draggableProvided) => (
-												<div
-													ref={draggableProvided.innerRef}
-													{...draggableProvided.draggableProps}
-													style={{ ...draggableProvided.draggableProps.style, minWidth:300 }}>
-														<div {...draggableProvided.dragHandleProps}>
-															<ListColumn list={list} tasks={tasksByList[list._id] || []} />
-														</div>
-												</div>
-											)}
-										</Draggable>
-									))}
-									{provided.placeholder}
-								</div>
-							)}
-						</Droppable>
-					</DragDropContext>
-
-				{/* <small className="text-muted text-center mt-3">
-					Hold <kbd>Shift</kbd> and scroll
-				</small> */}
-
+				<DragDropContext onDragEnd={onDragEnd}>
+					{lists.map((list, index) => (
+						<Col key={list._id + index}>
+							<ListColumn list={list} tasks={tasksByList[list._id] || []} />
+						</Col>
+					))}
+				</DragDropContext>
 			</Row>
 
 			{ loading && <p> Loading lists..... </p> }

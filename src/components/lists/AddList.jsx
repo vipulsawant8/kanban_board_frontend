@@ -1,6 +1,6 @@
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
-import { Modal, ModalHeader, ModalTitle, ModalBody, ModalFooter, Card, CardTitle, CardBody, Button } from "react-bootstrap";
+import { Modal, ModalHeader, ModalTitle, ModalBody, Card, CardBody } from "react-bootstrap";
 import CustomForm from "@/components/form/CustomForm.jsx";
 import { createList } from "@/app/features/lists/listSlice.js";
 import notify from "../../utils/notify";

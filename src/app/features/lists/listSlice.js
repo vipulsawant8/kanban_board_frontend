@@ -28,16 +28,6 @@ const listSlice = createSlice({
 		reorderList: (state, action) => {
 
 			const updates = action.payload;
-			
-			// updates.forEach(u => {
-
-			// 	if (state.entities[u._id]) {
-				
-			// state.entities[u._id].position = u.position;
-			// 		listAdapter.upsertOne(state, u);
-			// 	}
-			// });
-
 			listAdapter.upsertMany(state, updates);
 		},
 	},

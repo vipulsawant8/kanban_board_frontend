@@ -1,5 +1,5 @@
 import { useState, useRef, memo } from "react";
-import { Button, Card, CardBody, CardHeader } from "react-bootstrap";
+import { Button, Card, CardBody } from "react-bootstrap";
 
 import { ListHeader, ListTasks, ListAddTask, ListEditForm } from '@/components/lists';
 import ListDeleteModal from "./ListDeleteModal.jsx";
