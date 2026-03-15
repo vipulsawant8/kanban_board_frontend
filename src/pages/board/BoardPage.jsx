@@ -1,14 +1,11 @@
-import * as yup from "yup";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { selectAllLists, fetchLists, createList, reorderList, persistReorderLists } from "@/app/features/lists/listSlice.js";
+import { selectAllLists, fetchLists } from "@/app/features/lists/listSlice.js";
 import { selectAllTasks, fetchTasks, reorderTaskLocal, persistReorderTasks } from "@/app/features/tasks/taskSlice.js";
 
-// import { CustomForm } from "@/components/form";
-
-import { Container, Row, Col, Card, CardBody, CardTitle, Modal, ModalBody, ModalHeader, ModalFooter, Button } from "react-bootstrap";
-import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
+import { Row, Col, Button } from "react-bootstrap";
+import { DragDropContext } from "@hello-pangea/dnd";
 
 import { ListColumn } from "@/components/lists";
 
@@ -16,8 +13,6 @@ import reorderArray from "@/utils/reorder.js";
 
 import { useRef } from "react";
 import { AddList } from "../../components/lists";
-import { selectListIDs } from "../../app/features/lists/listSlice";
-import { selectTaskIDs } from "../../app/features/tasks/taskSlice";
 
 const BoardPage = () => {
 
@@ -27,6 +22,7 @@ const BoardPage = () => {
 
 	const lists = useSelector(selectAllLists);
 	const tasks = useSelector(selectAllTasks);
+	
 	const loading = useSelector(state => state.lists.loading);
 
 	const [adding, setAdding] = useState(false);

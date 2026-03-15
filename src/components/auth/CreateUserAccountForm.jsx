@@ -1,7 +1,5 @@
 import * as yup from "yup";
 import CustomForm from "@/components/form/CustomForm.jsx";
-import { useEffect } from "react";
-// import { forwardRef } from "react";
 
 const CreateUserAccount = ({ onSubmit, onError, loading , ref}) => {
 	const fields = [
