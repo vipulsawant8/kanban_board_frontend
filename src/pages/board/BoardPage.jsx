@@ -108,15 +108,24 @@ const BoardPage = () => {
 			 <AddList ref={formRef} show={adding} onHide={onHide} />
 
 			<Row className="mt-3">
-				<h2 className="mb-4"> Your Board </h2>
-				<DragDropContext onDragEnd={onDragEnd}>
-					{lists.map((list, index) => (
-						<Col key={list._id + index}>
+				<Col>
+					<h2 className="mb-4"> Your Board </h2>
+				</Col>
+			</Row>
+				
+			{/* <Row className="mt-3 overflow-x-auto"> */}
+				<div className="kanban-board d-flex gap-3 overflow-x-auto align-items-start">
+						<DragDropContext onDragEnd={onDragEnd}>
+							{lists.map((list, index) => (
+						// <Col key={list._id + index}>
+						<div className="kanban-column mb-3" key={list._id + index}>
 							<ListColumn list={list} tasks={tasksByList[list._id] || []} />
-						</Col>
+						{/* </Col> */}
+						</div>
 					))}
 				</DragDropContext>
-			</Row>
+					</div>
+			{/* </Row> */}
 
 			{ loading && <p> Loading lists..... </p> }
 			{ !loading && lists.length ===0 && <h4> No Lists </h4> }
